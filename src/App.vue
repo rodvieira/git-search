@@ -15,6 +15,5 @@
     text-align: center;
     color: #555;
     background-color: #fff;
-    min-height: 100vh;
   }
 </style>
