@@ -12,7 +12,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   button {
     max-width: 125px;
     width: 100%;
