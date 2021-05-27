@@ -5,7 +5,7 @@
     <div class="search">
       <search-input placeholder="Pesquisar..."/>
       <search-button>Ver Todos</search-button>
-      <search-button bg-color="green" >Buscar</search-button>
+      <search-button bg-color="green" @click="$router.push({ path: 'list' })">Buscar</search-button>
     </div>
   </div>
 </template>
@@ -55,6 +55,5 @@ export default {
       flex-flow: row wrap;
       justify-content: space-between;
     }
-
   }
 </style>

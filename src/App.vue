@@ -1,4 +1,5 @@
 <template>
+  <navbar />
   <router-view />
 </template>
 
@@ -7,6 +8,10 @@
     font-family: 'Montserrat', sans-serif !important;
     box-sizing: border-box;
     margin: 0;
+  }
+
+  img {
+    display: block;
   }
 
   #app {

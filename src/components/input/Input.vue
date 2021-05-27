@@ -1,6 +1,5 @@
 <template>
   <input type="text" :placeholder="placeholder">
-
 </template>
 <script>
 export default {
@@ -19,5 +18,6 @@ export default {
     width: 100%;
     font-size: 15px;
     margin-bottom: 19px;
+    background-color: #fff ;
   }
 </style>
