@@ -37,10 +37,14 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
   .wrapper-home {
     padding: 0 23px;
     margin-top: 65px;
+
+    img {
+      margin: 0 auto;
+    }
 
     h1 {
       font-size: 30px;
