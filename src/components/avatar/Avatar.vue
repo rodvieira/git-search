@@ -1,5 +1,5 @@
 <template>
-  <img src="@/assets/icons/user-avatar.svg" alt="Avatar">
+  <img :style="{ maxWidth: size }" src="@/assets/avatar.png" alt="Avatar">
 </template>
 <script>
 export default {
@@ -13,6 +13,5 @@ export default {
 <style lang="scss" scoped>
   img {
     border-radius: 50%;
-    max-width: 50px;
   }
 </style>
