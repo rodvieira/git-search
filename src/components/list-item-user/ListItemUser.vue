@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-list-item-user">
-    <avatar />
+    <avatar size="50px" />
     <h4>JULIALOPEZ</h4>
   </div>
 </template>
