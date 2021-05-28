@@ -2,7 +2,7 @@
   <div class="wrapper-list-users">
     <input-filter action-type="filter" />
     <div class="list-users">
-      <list-item-user />
+      <list-item-user @click="$router.push({ path: 'Profile'})"/>
       <list-item-user />
       <list-item-user />
       <list-item-user />

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper-navbar">
+  <div class="wrapper-navbar" v-if="$route.name !== 'Search'">
     <nav>
       <a @click="$router.back()">
         <img src="@/assets/icons/arrow-left.svg" alt="Voltar"/>
@@ -12,7 +12,10 @@
 export default {
   computed: {
     title() {
-      const titles = [{ name: 'ListUsers', value: 'Lista de Usuários' }];
+      const titles = [
+        { name: 'ListUsers', value: 'Lista de Usuários' },
+        { name: 'Profile', value: 'Perfil' },
+      ];
       const findTitle = titles.find((item) => item.name === this.$route.name);
       return findTitle ? findTitle.value : '';
     },
