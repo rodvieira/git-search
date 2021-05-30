@@ -14,7 +14,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Logo from '@/components/logo/Logo.vue';
 import SearchButton from '@/components/button/Button.vue';
 import SearchInput from '@/components/input/Input.vue';
@@ -51,6 +50,7 @@ export default {
     align-items: center;
     flex-direction: column;
     margin: 0 auto;
+    min-height: 100vh;
 
     img {
       margin: 0 auto;
