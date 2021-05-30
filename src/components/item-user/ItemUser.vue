@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-list-item-user">
-    <avatar size="50px" />
-    <h4>JULIALOPEZ</h4>
+    <avatar size="50px" :image="infoUser.avatar_url" />
+    <h4>{{infoUser.login}}</h4>
   </div>
 </template>
 <script>
@@ -11,6 +11,7 @@ export default {
   props: {
     size: String,
     bgColor: String,
+    infoUser: Object,
   },
   components: {
     Avatar,
