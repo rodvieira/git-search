@@ -16,6 +16,18 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: () => import('../views/profile/Profile.vue'),
+    children: [
+      {
+        path: '/profile/about',
+        name: 'About',
+        component: () => import('../views/profile/views/about/About.vue'),
+      },
+      {
+        path: '/profile/projects',
+        name: 'Projects',
+        component: () => import('../views/profile/views/projects/Projects.vue'),
+      },
+    ],
   },
 ];
 

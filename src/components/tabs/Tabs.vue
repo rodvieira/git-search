@@ -4,30 +4,24 @@
       <li
         v-for="(tab, index) in tabs"
         :key="tab.title"
-        @click="selectTab(index)"
+        @click="selectTab(index, tab.route)"
         :class="{ 'selected': index === selectedIndex }"
       >
         <span>{{tab.title}}</span>
       </li>
     </ul>
-    <tab v-for="(tab, index) in tabs" :key="tab.title">
-      <template v-if="index === selectedIndex">
-        {{tab.content}}
-      </template>
-    </tab>
+    <div class="tab-content">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>
-import Tab from './components/tab/Tab.vue';
 
 export default {
   data() {
     return {
       selectedIndex: 0,
     };
-  },
-  components: {
-    Tab,
   },
   props: {
     tabs: {
@@ -36,12 +30,13 @@ export default {
     },
   },
   methods: {
-    selectTab(tabIndex) {
+    selectTab(tabIndex, route) {
       this.selectedIndex = tabIndex;
+      this.$router.push({ path: route });
     },
   },
   mounted() {
-    this.selectTab(0);
+    this.selectTab(0, this.tabs[0].route);
   },
 };
 </script>
@@ -78,5 +73,8 @@ export default {
       }
     }
 
+    .tab-content {
+      padding: 0 20px;
+    }
   }
 </style>

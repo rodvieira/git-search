@@ -29,8 +29,8 @@
     </div>
     <tabs
       :tabs="[
-        {title: 'Sobre', content: 'sobre'},
-        {title: 'Projetos', content: 'projetos'}
+        {title: 'Sobre', route: '/profile/about'},
+        {title: 'Projetos', route: '/profile/projects'}
       ]"
     />
 
@@ -80,6 +80,7 @@ export default {
         font-size: 24px;
         color: #162668;
         margin-bottom: 4px;
+        margin-top: 0;
       }
 
       span {
