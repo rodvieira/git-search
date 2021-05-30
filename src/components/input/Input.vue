@@ -38,6 +38,10 @@ export default {
         border-radius: 4px;
         height: 30px;
         margin-bottom: 18px;
+
+        @media (min-width: 768px) {
+          height: 40px;
+        }
       }
 
       &.filter {
@@ -49,6 +53,10 @@ export default {
         background-image: url('../../assets/icons/search.svg');
         background-repeat: no-repeat;
         background-position: 10px center;
+
+        @media (min-width: 768px) {
+          max-width: 245px;
+        }
       }
     }
   }

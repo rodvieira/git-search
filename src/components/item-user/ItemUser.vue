@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-list-item-user">
-    <avatar size="50px" :image="infoUser.avatar_url" />
+    <avatar size="50px" :image="infoUser.avatar_url" class="avatar"/>
     <h4>{{infoUser.login}}</h4>
   </div>
 </template>
@@ -40,6 +40,28 @@ export default {
       font-weight: 600;
       font-size: 15px;
       margin-left: 16px;
+      word-break: break-all;
+    }
+
+    @media (min-width: 768px) {
+      flex-direction: column;
+      padding: 40px 16px;
+      border: 1px solid #F2F2F2;
+      width: 20%;
+
+      &:last-child {
+        border: 1px solid #F2F2F2;;
+      }
+
+      .avatar {
+        max-width: 100px !important;
+        margin-bottom: 10px;
+      }
+
+      h4 {
+        font-size: 20px;
+        margin: 0;
+      }
     }
   }
 </style>

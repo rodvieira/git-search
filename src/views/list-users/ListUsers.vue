@@ -1,6 +1,13 @@
 <template>
   <div class="wrapper-list-users">
-    <input-filter action-type="filter" @input-value="e => setQueryFilter(e)" />
+    <div class="head-list">
+      <h2>Search Results</h2>
+      <input-filter
+        action-type="filter"
+        @input-value="e => setQueryFilter(e)"
+        class="filter-input"
+      />
+    </div>
     <div class="list-users">
       <item-user
         v-for="user in users"
@@ -8,15 +15,15 @@
         :infoUser="user"
         @click="$router.push({ path: 'Profile'})"
       />
-      <div class="status-list">
-        <loader v-if="loading"/>
-        <view-more v-else-if="totalList > users.length" @click="viewMoreList()"/>
-        <itens-loaded
-          v-else
-          :itensLoaded="users.length"
-          listName="usuários"
-        />
-      </div>
+    </div>
+    <div class="status-list">
+      <loader v-if="loading"/>
+      <view-more v-else-if="totalList > users.length" @click="viewMoreList()"/>
+      <itens-loaded
+        v-else
+        :itensLoaded="users.length"
+        listName="usuários"
+      />
     </div>
   </div>
 </template>
@@ -52,16 +59,13 @@ export default {
     ...mapState(['searchParams']),
   },
   methods: {
-    searchUsers(query) {
-      this.setSearchParams(query);
-      this.$router.push({ path: '/list' });
-    },
     viewMoreList() {
       const query = this.filter ? this.filter : this.searchParams;
       this.page += 1;
       this.fetchUsers(query);
     },
     setQueryFilter(query) {
+      this.users = [];
       this.filter = query;
       this.page = 1;
       this.fetchUsers(query);
@@ -71,19 +75,21 @@ export default {
       try {
         const { data } = await searchApi.search({
           q: query,
-          per_page: 10 * this.page,
+          page: this.page,
+          per_page: 10,
         });
-        this.users = data.items;
+        this.users = this.users.concat(data.items);
         this.totalList = data.total_count;
       } catch (err) {
-        console.log(err);
         this.users = [];
+        this.totalList = 0;
       }
       this.loading = false;
     },
   },
   mounted() {
-    this.fetchUsers(this.searchParams);
+    if (this.searchParams === 'all') this.fetchUsers(' ');
+    else this.fetchUsers(this.searchParams);
   },
 
 };
@@ -92,6 +98,12 @@ export default {
   .wrapper-list-users{
     padding: 0 16px;
     margin-top: 16px;
+    width: 100%;
+    max-width: 860px;
+
+    h2 {
+      display: none;
+    }
 
     .list-users {
       margin-top: 24px;
@@ -99,6 +111,43 @@ export default {
 
     .status-list {
       margin: 24px;
+    }
+
+    @media (min-width: 768px) {
+      background-color: #fff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      margin: 40px auto;
+
+      .head-list {
+        display: flex;
+        padding: 30px 50px;
+        border-bottom: 1px solid #EDEDED;
+
+        h2 {
+          display: block;
+          font-weight: 600;
+          font-size: 30px;
+          line-height: 36px;
+          margin: 0;
+          color: #000;
+          flex-grow: 1;
+          flex-basis: 0;
+          text-align: left;
+        }
+
+        .filter-input {
+          flex-grow: 1;
+          flex-basis: 0;
+          text-align: right;
+        }
+      }
+
+      .list-users {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 24px 80px 0;
+      }
     }
   }
 </style>
