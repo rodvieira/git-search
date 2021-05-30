@@ -25,6 +25,7 @@ export default {
     align-items: center;
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.5);
     padding: 8px 0;
+    cursor: pointer;
 
     &:last-child {
       border: none;

@@ -7,7 +7,7 @@
         placeholder="Pesquisar..."
         @input-value="value => querySearch = value"
       />
-      <search-button @click="searchUsers('all')">Ver Todos</search-button>
+      <search-button @click="searchUsers('type:user')">Ver Todos</search-button>
       <search-button bg-color="green" @click="searchUsers(querySearch)">Buscar</search-button>
     </div>
   </div>

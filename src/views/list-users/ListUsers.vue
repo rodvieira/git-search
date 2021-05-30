@@ -68,7 +68,9 @@ export default {
       this.users = [];
       this.filter = query;
       this.page = 1;
-      this.fetchUsers(query);
+      setTimeout(() => {
+        this.fetchUsers(query);
+      }, 1000);
     },
     async fetchUsers(query) {
       this.loading = true;
@@ -88,8 +90,7 @@ export default {
     },
   },
   mounted() {
-    if (this.searchParams === 'all') this.fetchUsers(' ');
-    else this.fetchUsers(this.searchParams);
+    this.fetchUsers(this.searchParams);
   },
 
 };
