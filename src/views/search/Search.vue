@@ -3,44 +3,54 @@
     <logo />
     <h1>GitSearch</h1>
     <div class="search">
-      <search-input placeholder="Pesquisar..."/>
-      <search-button>Ver Todos</search-button>
-      <search-button bg-color="green" @click="$router.push({ path: 'list' })">Buscar</search-button>
+      <search-input
+        placeholder="Pesquisar..."
+        @input-value="value => querySearch = value"
+      />
+      <search-button @click="searchUsers('')">Ver Todos</search-button>
+      <search-button bg-color="green" @click="searchUsers(querySearch)">Buscar</search-button>
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import usersApi from '@/service/routes/users';
 import Logo from '@/components/logo/Logo.vue';
 import SearchButton from '@/components/button/Button.vue';
 import SearchInput from '@/components/input/Input.vue';
 
+import { mapActions } from 'vuex';
+
 export default {
   name: 'Search',
+  data() {
+    return {
+      querySearch: '',
+    };
+  },
   components: {
     Logo,
     SearchButton,
     SearchInput,
   },
   methods: {
-    fetchUsers() {
-      usersApi.getUsers({}, 'rodvieira')
-        .then((res) => {
-          console.log(res);
-        });
+    ...mapActions(['setSearchParams']),
+    searchUsers(query) {
+      this.setSearchParams(query);
+      this.$router.push({ path: '/list' });
     },
-  },
-  mounted() {
-    this.fetchUsers();
   },
 };
 </script>
 <style lang="scss" scoped>
   .wrapper-home {
     padding: 0 23px;
-    margin-top: 65px;
+    max-width: 466px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
 
     img {
       margin: 0 auto;
@@ -60,4 +70,5 @@ export default {
       justify-content: space-between;
     }
   }
+
 </style>
