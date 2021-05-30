@@ -16,12 +16,22 @@ export default {
   * {
     font-family: 'Montserrat', sans-serif !important;
     box-sizing: border-box;
-    margin: 0;
     outline: 0;
   }
 
-  img {
-    display: block;
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    line-height: 1.5;
+  }
+
+  body {
+    margin: 0;
+
+    img {
+      display: block;
+    }
   }
 
   #app {
@@ -30,5 +40,12 @@ export default {
     text-align: center;
     color: #555;
     background-color: #fff;
+    display: flex;
+    min-height: 100%;
+    min-width: 100%;
+
+    @media (min-width: 481px) {
+      background-color: #F8FAFB;
+    }
   }
 </style>

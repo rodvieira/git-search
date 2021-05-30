@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper-navbar" v-if="$route.name !== 'Search'">
     <nav>
-      <a @click="$router.back()">
+      <a @click="backRoute()">
         <img src="@/assets/icons/arrow-left.svg" alt="Voltar"/>
       </a>
       <h3>{{title}}</h3>
@@ -18,6 +18,12 @@ export default {
       ];
       const findTitle = titles.find((item) => item.name === this.$route.name);
       return findTitle ? findTitle.value : '';
+    },
+  },
+  methods: {
+    backRoute() {
+      if (this.$route.name === 'ListUsers') this.$router.push({ path: '/' });
+      else if (this.$route.name === 'Profile') this.$router.push({ path: '/list' });
     },
   },
 };
@@ -41,6 +47,7 @@ export default {
         color: #263238;
         font-weight: 600;
         font-size: 14px;
+        margin: 0;
       }
     }
   }

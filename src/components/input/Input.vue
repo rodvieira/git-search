@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper-input">
-    <input type="text" :placeholder="placeholder" :class="{'filter': actionType === 'filter' }">
+    <input
+      type="text"
+      :placeholder="placeholder"
+      :class="{'filter': actionType === 'filter' }"
+      @input="onInput"
+    />
   </div>
 </template>
 <script>
@@ -8,6 +13,11 @@ export default {
   props: {
     placeholder: String,
     actionType: String,
+  },
+  methods: {
+    onInput(event) {
+      this.$emit('input-value', event.target.value);
+    },
   },
 };
 </script>

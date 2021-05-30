@@ -36,6 +36,7 @@ export default {
     h6 {
       font-size: 14px;
       line-height: 20px;
+      margin: 0;
     }
 
   }

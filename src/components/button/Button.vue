@@ -29,5 +29,9 @@ export default {
     &.green {
       background-color: #6FCF97;
     }
+
+    @media (min-width: 481px) {
+      max-width: 200px;
+    }
   }
 </style>
