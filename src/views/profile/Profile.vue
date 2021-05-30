@@ -1,45 +1,51 @@
 <template>
   <div class="wrapper-profile">
-    <div class="header-profile">
-      <avatar size="120px" class="avatar"/>
-    </div>
-    <div class="info-user">
-      <h2>Julia Lopez</h2>
-      <span>
-        <img src="@/assets/icons/user.svg" alt="User" />
-        julialopez
-      </span>
-    </div>
-    <div class="details-profile">
-      <details-profile
-        icon="people-standing.svg"
-        title="Seguindo"
-        quantity="122"
+    <div v-if="!loading">
+      <div class="header-profile">
+        <avatar size="120px" class="avatar" :image="user.avatar_url" />
+      </div>
+      <div class="info-user">
+        <h2>{{user.name}}</h2>
+        <span>
+          <img src="@/assets/icons/user.svg" alt="User" />
+          {{user.login}}
+        </span>
+      </div>
+      <div class="details-profile">
+        <details-profile
+          icon="people-standing.svg"
+          title="Seguindo"
+          :quantity="user.following"
+        />
+        <details-profile
+          icon="path.svg"
+          title="Projetos"
+          :quantity="user.public_repos"
+        />
+        <details-profile
+          icon="peoples.svg"
+          title="Seguidores"
+          :quantity="user.followers"
+        />
+      </div>
+      <tabs
+        :tabs="[
+          {title: 'Sobre', route: '/profile/about'},
+          {title: 'Projetos', route: '/profile/projects'}
+        ]"
       />
-      <details-profile
-        icon="path.svg"
-        title="Projetos"
-        quantity="31"
-      />
-      <details-profile
-        icon="peoples.svg"
-        title="Seguidores"
-        quantity="44"
-      />
     </div>
-    <tabs
-      :tabs="[
-        {title: 'Sobre', route: '/profile/about'},
-        {title: 'Projetos', route: '/profile/projects'}
-      ]"
-    />
-
+    <loader v-else/>
   </div>
 </template>
 <script>
 import Avatar from '@/components/avatar/Avatar.vue';
 import DetailsProfile from '@/components/details/Details.vue';
+import Loader from '@/components/loader/Loader.vue';
 import Tabs from '@/components/tabs/Tabs.vue';
+import usersApi from '@/service/routes/users';
+
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Profile',
@@ -47,6 +53,35 @@ export default {
     Avatar,
     DetailsProfile,
     Tabs,
+    Loader,
+  },
+  data() {
+    return {
+      user: {},
+      loading: true,
+    };
+  },
+  computed: {
+    ...mapState(['searchParams']),
+  },
+  methods: {
+    ...mapActions(['setUser']),
+
+    async fetchUsers(query) {
+      this.loading = true;
+      try {
+        const { data } = await usersApi.getUsers({}, query);
+        this.user = data;
+        this.setUser(data);
+      } catch (err) {
+        this.user = {};
+        this.setUser({});
+      }
+      this.loading = false;
+    },
+  },
+  mounted() {
+    this.fetchUsers(this.searchParams);
   },
 
 };
@@ -100,6 +135,5 @@ export default {
       display: flex;
       justify-content: space-between;
     }
-
   }
 </style>

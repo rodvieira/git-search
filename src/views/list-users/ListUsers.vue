@@ -13,7 +13,7 @@
         v-for="user in users"
         :key="user.id"
         :infoUser="user"
-        @click="$router.push({ path: 'Profile'})"
+        @click="selectedUser(user)"
       />
     </div>
     <div class="status-list">
@@ -33,7 +33,7 @@ import ItemUser from '@/components/item-user/ItemUser.vue';
 import ItensLoaded from '@/components/itens-loaded/ItensLoaded.vue';
 import Loader from '@/components/loader/Loader.vue';
 import ViewMore from '@/components/view-more/ViewMore.vue';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 import searchApi from '@/service/routes/search';
 
@@ -59,6 +59,12 @@ export default {
     ...mapState(['searchParams']),
   },
   methods: {
+    ...mapActions(['setSearchParams']),
+
+    selectedUser(user) {
+      this.setSearchParams(user.login);
+      this.$router.push({ path: 'Profile' });
+    },
     viewMoreList() {
       const query = this.filter ? this.filter : this.searchParams;
       this.page += 1;
