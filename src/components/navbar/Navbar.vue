@@ -32,7 +32,7 @@ export default {
   methods: {
     backRoute() {
       if (this.$route.name === 'ListUsers') this.$router.push({ path: '/' });
-      else if (this.$route.name === 'Profile') this.$router.push({ path: '/list' });
+      else this.$router.push({ path: '/list' });
     },
   },
 };
