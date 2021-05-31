@@ -1,32 +1,34 @@
 <template>
   <div class="wrapper-profile">
     <div v-if="!loading">
-      <div class="header-profile">
-        <avatar size="120px" class="avatar" :image="user.avatar_url" />
-      </div>
-      <div class="info-user">
-        <h2>{{user.name}}</h2>
-        <span>
-          <img src="@/assets/icons/user.svg" alt="User" />
-          {{user.login}}
-        </span>
-      </div>
-      <div class="details-profile">
-        <details-profile
-          icon="people-standing.svg"
-          title="Seguindo"
-          :quantity="user.following"
-        />
-        <details-profile
-          icon="path.svg"
-          title="Projetos"
-          :quantity="user.public_repos"
-        />
-        <details-profile
-          icon="peoples.svg"
-          title="Seguidores"
-          :quantity="user.followers"
-        />
+      <div class="header-md-profile">
+        <div class="header-profile">
+          <avatar size="120px" class="avatar" :image="user.avatar_url" />
+        </div>
+        <div class="info-user">
+          <h2>{{user.name}}</h2>
+          <span>
+            <img src="@/assets/icons/user.svg" alt="User" />
+            {{user.login}}
+          </span>
+        </div>
+        <div class="details-profile">
+          <details-profile
+            icon="people-standing.svg"
+            title="Seguindo"
+            :quantity="user.following"
+          />
+          <details-profile
+            icon="path.svg"
+            title="Projetos"
+            :quantity="user.public_repos"
+          />
+          <details-profile
+            icon="peoples.svg"
+            title="Seguidores"
+            :quantity="user.followers"
+          />
+        </div>
       </div>
       <tabs
         :tabs="[
@@ -62,7 +64,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['searchParams']),
+    ...mapState(['repoParams']),
   },
   methods: {
     ...mapActions(['setUser']),
@@ -81,7 +83,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchUsers(this.searchParams);
+    this.fetchUsers(this.repoParams);
   },
 
 };
@@ -134,6 +136,48 @@ export default {
       margin: 28px 0;
       display: flex;
       justify-content: space-between;
+    }
+
+    @media (min-width: 768px) {
+      width: 100%;
+      max-width: 860px;
+      margin: 40px auto;
+      background-color: #fff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+
+      .header-md-profile {
+        background-image: url(../../assets/bg-profile.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        margin: 0 -20px;
+        padding: 72px 16px 0;
+        display: flex;
+        align-items: flex-end;
+
+        .header-profile {
+          background: transparent;
+          margin: 0;
+          display: block;
+          padding: 0;
+
+          .avatar {
+            width: 150px;
+          }
+        }
+
+        .info-user {
+          margin-left: 32px;
+          padding: 0;
+          text-align: right;
+        }
+
+        .details-profile {
+          margin: 0 0 0 auto;
+          display: flex;
+          justify-content: end;
+        }
+      }
     }
   }
 </style>

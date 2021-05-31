@@ -76,5 +76,30 @@ export default {
     .tab-content {
       padding: 0 20px;
     }
+
+    @media (min-width: 768px) {
+      display: flex;
+
+      .tabs-header {
+        display: block;
+        width: 20%;
+        border-right: 1px solid #CECECE;
+        margin: 0;
+        padding-top: 48px;
+
+          li {
+            &.selected {
+              border-right: 3px solid #5C97D2;
+              border-bottom: none;
+            }
+          }
+      }
+
+      .tab-content {
+        width: 80%;
+        padding: 40px 60px;
+      }
+    }
+
   }
 </style>

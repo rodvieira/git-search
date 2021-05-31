@@ -1,7 +1,7 @@
 <template>
   <span>
     {{
-      itensLoaded > 0 ? `Todos os ${listName} carregados` : `Nenhum resultado encontrado`
+      itensLoaded > 0 ? `Todos os dados carregados` : `Nenhum resultado encontrado`
     }}
   </span>
 </template>
@@ -9,7 +9,6 @@
 export default {
   props: {
     itensLoaded: Number,
-    listName: String,
   },
 };
 </script>

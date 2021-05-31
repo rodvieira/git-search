@@ -12,7 +12,7 @@ export default {
   props: {
     icon: String,
     title: String,
-    quantity: String,
+    quantity: Number,
   },
 };
 </script>
@@ -39,5 +39,12 @@ export default {
       margin: 0;
     }
 
+    @media (min-width: 768px) {
+      margin: 4px 12px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 </style>

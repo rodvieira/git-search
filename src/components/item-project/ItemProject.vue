@@ -1,23 +1,30 @@
 <template>
   <div class="wrapper-item-project">
-    <h4>Projeto 01</h4>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla laoreet tincidunt erat ut ...
-    </p>
+    <div class="info-project">
+      <h4>{{project.name}}</h4>
+      <p>{{project.description}}</p>
+    </div>
     <div class="item-project-footer">
-      <div class="lang"></div>
-      <span>Atualizado em 18/12/2018</span>
+      <div class="info-lang" v-if="project.language">
+        <div class="lang"></div>
+        <span>{{project.language}}</span>
+      </div>
+      <span>Atualizado em {{updateProject}}</span>
     </div>
   </div>
 </template>
 <script>
+import formatDate from '../../utils/formatDate';
 
 export default {
+
   props: {
-    size: String,
-    bgColor: String,
+    project: Object,
   },
-  components: {
+  computed: {
+    updateProject() {
+      return formatDate(this.project.updated_at);
+    },
   },
 };
 </script>
@@ -40,11 +47,20 @@ export default {
       font-size: 10px;
     }
 
-    .lang {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background-color: #31BD00;
+    .info-lang {
+      display: flex;
+      align-items: center;
+
+      .lang {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #31BD00;
+      }
+
+      span {
+        margin-left: 4px;
+      }
     }
 
     .item-project-footer {
@@ -59,5 +75,28 @@ export default {
         color: #586069;
       }
     }
+
+    @media (min-width: 768px) {
+      display: flex;
+      padding: 10px;
+
+      .info-project {
+        max-width: 75%;
+      }
+
+      .item-project-footer {
+        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin-bottom: 0;
+
+        .info-lang {
+          margin-bottom: 8px;
+        }
+      }
+    }
+
   }
 </style>

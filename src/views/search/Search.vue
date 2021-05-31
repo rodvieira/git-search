@@ -33,9 +33,9 @@ export default {
     SearchInput,
   },
   methods: {
-    ...mapActions(['setSearchParams']),
+    ...mapActions(['setUserParams']),
     searchUsers(query) {
-      this.setSearchParams(query);
+      this.setUserParams(query);
       this.$router.push({ path: '/list' });
     },
   },

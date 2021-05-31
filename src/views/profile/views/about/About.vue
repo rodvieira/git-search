@@ -53,5 +53,15 @@ export default {
         margin-right: 14px;
       }
     }
+
+    @media (min-width: 768px) {
+      .item-title {
+        font-size: 18px;
+      }
+
+      p {
+        margin-bottom: 40px
+      };
+    }
   }
 </style>

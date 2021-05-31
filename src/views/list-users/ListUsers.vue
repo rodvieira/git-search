@@ -16,25 +16,19 @@
         @click="selectedUser(user)"
       />
     </div>
-    <div class="status-list">
-      <loader v-if="loading"/>
-      <view-more v-else-if="totalList > users.length" @click="viewMoreList()"/>
-      <itens-loaded
-        v-else
-        :itensLoaded="users.length"
-        listName="usuários"
-      />
-    </div>
+    <paginate
+      :loading="loading"
+      :totalList="totalList"
+      @viewMore="viewMoreList()"
+      :usersRender="users.length"
+    />
   </div>
 </template>
 <script>
 import InputFilter from '@/components/input/Input.vue';
 import ItemUser from '@/components/item-user/ItemUser.vue';
-import ItensLoaded from '@/components/itens-loaded/ItensLoaded.vue';
-import Loader from '@/components/loader/Loader.vue';
-import ViewMore from '@/components/view-more/ViewMore.vue';
+import Paginate from '@/components/paginate/Paginate.vue';
 import { mapState, mapActions } from 'vuex';
-
 import searchApi from '@/service/routes/search';
 
 export default {
@@ -42,9 +36,7 @@ export default {
   components: {
     InputFilter,
     ItemUser,
-    Loader,
-    ViewMore,
-    ItensLoaded,
+    Paginate,
   },
   data() {
     return {
@@ -56,17 +48,17 @@ export default {
     };
   },
   computed: {
-    ...mapState(['searchParams']),
+    ...mapState(['userParams']),
   },
   methods: {
-    ...mapActions(['setSearchParams']),
+    ...mapActions(['setRepoParams']),
 
     selectedUser(user) {
-      this.setSearchParams(user.login);
-      this.$router.push({ path: 'Profile' });
+      this.setRepoParams(user.login);
+      this.$router.push({ path: '/profile/about' });
     },
     viewMoreList() {
-      const query = this.filter ? this.filter : this.searchParams;
+      const query = this.filter ? this.filter : this.userParams;
       this.page += 1;
       this.fetchUsers(query);
     },
@@ -74,19 +66,17 @@ export default {
       this.users = [];
       this.filter = query;
       this.page = 1;
-      setTimeout(() => {
-        this.fetchUsers(query);
-      }, 1000);
+      this.fetchUsers(query);
     },
     async fetchUsers(query) {
       this.loading = true;
       try {
         const { data } = await searchApi.search({
           q: query,
-          page: this.page,
-          per_page: 10,
+          page: 1,
+          per_page: 10 * this.page,
         });
-        this.users = this.users.concat(data.items);
+        this.users = data.items;
         this.totalList = data.total_count;
       } catch (err) {
         this.users = [];
@@ -96,7 +86,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchUsers(this.searchParams);
+    this.fetchUsers(this.userParams);
   },
 
 };
@@ -114,10 +104,6 @@ export default {
 
     .list-users {
       margin-top: 24px;
-    }
-
-    .status-list {
-      margin: 24px;
     }
 
     @media (min-width: 768px) {
